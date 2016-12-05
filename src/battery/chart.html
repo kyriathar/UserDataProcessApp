@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="nl">
+<head>
+    <meta charset="utf-8">
+    <title>Become a member</title>
+    <script type="text/javascript" src="Chart.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+</head>
+
+<body onload="init()">
+<script type="text/javascript">
+            var ctx;
+            var levelArray = [];
+            var timestampArray = [];
+            var myNewChart ;
+
+            var operatorArray = [];
+            var clientsArray = [];
+
+            function init() {
+                ctx = $("#myChart").get(0).getContext("2d");
+            }
+
+            function addLevel(level){
+                levelArray.push(level);
+            }
+
+            function addTimestamp(timestamp){
+                var sTimestamp = timestamp.toString();
+                timestampArray.push(sTimestamp);
+            }
+
+            function createDiagram(){
+                var data = {
+                    labels: timestampArray,
+                    datasets: [
+                        {
+                            fillColor: "rgba(220,220,220,0.5)",
+                            strokeColor: "rgba(220,220,220,1)",
+                            pointColor: "rgba(220,220,220,1)",
+                            pointStrokeColor: "#fff",
+                            data: levelArray
+                        }
+                    ]
+                }
+
+                myNewChart = new Chart(ctx).Line(data);
+            }
+
+            function destroyChart(){
+                myNewChart.destroy();
+                levelArray.length = 0;
+                timestampArray.length = 0;
+                operatorArray.length = 0;
+                clientsArray.length = 0;
+            }
+
+            function createBarDiagram(){
+                var barArray = ["0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23"];
+
+
+                var data = {
+                    labels: barArray,
+                    datasets: [
+                        {
+                            fillColor: "rgba(220,220,220,0.5)",
+                            strokeColor: "rgba(220,220,220,0.8)",
+                            highlightFill: "rgba(220,220,220,0.75)",
+                            highlightStroke: "rgba(220,220,220,1)",
+                            data: levelArray
+                        }
+                    ]
+                }
+
+                myNewChart = new Chart(ctx).Bar(data);
+            }
+
+            function addOperator(operator){
+                operatorArray.push(operator.toString());
+            }
+
+            function addClients(clients){
+                clientsArray.push(clients);
+            }
+
+            function createOperatorDiagram(){
+                var data = {
+                    labels: operatorArray,
+                    datasets: [
+                        {
+                            fillColor: "rgba(220,220,220,0.5)",
+                            strokeColor: "rgba(220,220,220,0.8)",
+                            highlightFill: "rgba(220,220,220,0.75)",
+                            highlightStroke: "rgba(220,220,220,1)",
+                            data: clientsArray
+                        }
+                    ]
+                }
+
+                myNewChart = new Chart(ctx).Bar(data);
+            }
+
+
+
+        </script>
+<div>
+    <section>
+        <article>
+            <canvas id="myChart" width="700" height="500">
+            </canvas>
+        </article>
+    </section>
+</div>
+</body>
+</html>
